@@ -27,7 +27,7 @@
         fromLabel: '@?',
         toLabel: '@?'
       },
-      templateUrl: 'app/ml-synonyms-ng/ml-synonyms.html',
+      templateUrl: '/ml-synonyms-ng/ml-synonyms.html',
       link: function($scope, $element, $attrs) {
         $scope.fromLabel = $scope.fromLabel || 'From';
         $scope.toLabel = $scope.toLabel || 'To';
