@@ -1,0 +1,32 @@
+<div class="ml-synonyms">
+  <form ng-if="addSynonym" class="form-inline" ng-submit="addSynonym({from: newFrom, to: newTo})">
+    <input type="text" placeholder="{{fromLabel}}.." ng-model="newFrom" />
+    <input type="text" placeholder="{{toLabel}}.." ng-model="newTo" />
+    <button class="btn btn-default btn-sm"><i class="fa fa-link fa-2x" ng-click="addSynonym({from: newFrom, to: newTo})"></i></button>
+  </form>
+  <table class="table-hover">
+    <thead>
+      <tr>
+        <th>{{fromLabel}}</th>
+        <th/>
+        <th>{{toLabel}}</th>
+        <th/>
+      </tr>
+    </thead>
+    <tbody ng-repeat="(key, syns) in synonyms">
+      <tr ng-repeat="synonym in syns">
+        <td class="from"><span ng-if="$first">{{key}}</span></td>
+        <td class="link">{{ $first ? (!$last ? '┳' : '━') : (!$last ? '┣' : '┗') }}</td>
+        <td class="to">{{synonym.to}}</td>
+        <td class="action" ng-if="addSynonym || removeSynonym">
+          <a href ng-if="removeSynonym && synonym.direct"><i class="fa fa-unlink" ng-click="removeSynonym({from: key, to: synonym.to})"></i></a>
+          <a href ng-if="addSynonym && !synonym.direct"><i class="fa fa-link" ng-click="addSynonym({from: key, to: synonym.to})"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div ng-if="data.data">
+    <button class="btn btn-default btn-sm" ng-click="showData = !showData">{{showData ? 'Hide' : 'Show'}} Data</button>
+    <pre ng-show="showData">{{data.data}}</pre>
+  </div>
+</div>

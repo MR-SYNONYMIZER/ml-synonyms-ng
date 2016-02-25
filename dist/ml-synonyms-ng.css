@@ -1,0 +1,25 @@
+.ml-synonyms {
+  padding: 1em;
+}
+.ml-synonyms form {
+  padding: 1em 0;
+}
+.ml-synonyms table {
+  font-size: 1.25em;
+  line-height: 1;
+}
+.ml-synonyms table .from,
+.ml-synonyms table .to {
+  min-width: 75px;
+}
+.ml-synonyms table .link {
+  font-size: 1.5em;
+  color: black;
+}
+.ml-synonyms table .fa {
+  margin-left: 5px;
+}
+.ml-synonyms table td {
+  padding-left: 5px;
+  padding-right: 5px;
+}
