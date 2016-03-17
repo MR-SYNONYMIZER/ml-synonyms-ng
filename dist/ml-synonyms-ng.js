@@ -170,7 +170,7 @@ module.run(['$templateCache', function($templateCache) {
     '  <form ng-if="addSynonym" class="form-inline" ng-submit="addSynonym({from: newFrom, to: newTo})">\n' +
     '    <input type="text" placeholder="{{fromLabel}}.." ng-model="newFrom">\n' +
     '    <input type="text" placeholder="{{toLabel}}.." ng-model="newTo">\n' +
-    '    <button class="btn btn-default btn-sm"><i class="fa fa-link fa-2x" ng-click="addSynonym({from: newFrom, to: newTo})"></i></button>\n' +
+    '    <button ng-disabled="!newFrom || !newTo" class="btn btn-default btn-sm"><i class="fa fa-link fa-2x" ng-click="addSynonym({from: newFrom, to: newTo})"></i></button>\n' +
     '  </form>\n' +
     '  <table class="table-hover">\n' +
     '    <thead>\n' +

@@ -2,7 +2,7 @@
   <form ng-if="addSynonym" class="form-inline" ng-submit="addSynonym({from: newFrom, to: newTo})">
     <input type="text" placeholder="{{fromLabel}}.." ng-model="newFrom" />
     <input type="text" placeholder="{{toLabel}}.." ng-model="newTo" />
-    <button class="btn btn-default btn-sm"><i class="fa fa-link fa-2x" ng-click="addSynonym({from: newFrom, to: newTo})"></i></button>
+    <button ng-disabled="!newFrom || !newTo" class="btn btn-default btn-sm"><i class="fa fa-link fa-2x" ng-click="addSynonym({from: newFrom, to: newTo})"></i></button>
   </form>
   <table class="table-hover">
     <thead>
