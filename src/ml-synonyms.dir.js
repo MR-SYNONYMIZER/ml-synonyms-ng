@@ -13,17 +13,27 @@
       scope: {
         synonyms: '=',
         data: '=?',
+        fromSuggestions: '=?',
+        toSuggestions: '=?',
+
         addSynonym: '&?',
         removeSynonym: '&?',
+
         fromLabel: '@?',
-        toLabel: '@?'
+        toLabel: '@?',
+
+        template: '@'
       },
-      templateUrl: '/ml-synonyms-ng/ml-synonyms.html',
+      templateUrl: template,
       link: function($scope, $element, $attrs) {
         $scope.fromLabel = $scope.fromLabel || 'From';
         $scope.toLabel = $scope.toLabel || 'To';
       }
     };
+  }
+
+  function template(element, attrs) {
+    return attrs.template || '/ml-synonyms-ng/ml-synonyms.html';
   }
 
 }());

@@ -22,17 +22,27 @@
       scope: {
         synonyms: '=',
         data: '=?',
+        fromSuggestions: '=?',
+        toSuggestions: '=?',
+
         addSynonym: '&?',
         removeSynonym: '&?',
+
         fromLabel: '@?',
-        toLabel: '@?'
+        toLabel: '@?',
+
+        template: '@'
       },
-      templateUrl: '/ml-synonyms-ng/ml-synonyms.html',
+      templateUrl: template,
       link: function($scope, $element, $attrs) {
         $scope.fromLabel = $scope.fromLabel || 'From';
         $scope.toLabel = $scope.toLabel || 'To';
       }
     };
+  }
+
+  function template(element, attrs) {
+    return attrs.template || '/ml-synonyms-ng/ml-synonyms.html';
   }
 
 }());
@@ -122,6 +132,8 @@
     function getTriplesData() {
       return mlRest.things(''+predicate+'').then(function(response) {
         return { data: response && response.data };
+      }, function(error) {
+        return { data: error.status === 404 ? '' : error.status };
       });
     }
 
@@ -129,7 +141,7 @@
       /* jshint multistr: true */
       var query = '\
         INSERT DATA { \
-          "'+from+'" <'+predicate+'> "'+to+'". \
+          <'+from+'> <'+predicate+'> <'+to+'>. \
         } \
       ';
       /* jshint multistr: false */
@@ -140,8 +152,8 @@
       /* jshint multistr: true */
       var query = '\
         DELETE DATA { \
-          "'+from+'" <'+predicate+'> "'+to+'". \
-          "'+to+'" <'+predicate+'> "'+from+'". \
+          <'+from+'> <'+predicate+'> <'+to+'>. \
+          <'+to+'> <'+predicate+'> <'+from+'>. \
         } \
       ';
       /* jshint multistr: false */
@@ -168,8 +180,8 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/ml-synonyms-ng/ml-synonyms.html',
     '<div class="ml-synonyms">\n' +
     '  <form ng-if="addSynonym" class="form-inline" ng-submit="addSynonym({from: newFrom, to: newTo})">\n' +
-    '    <input type="text" placeholder="{{fromLabel}}.." ng-model="newFrom">\n' +
-    '    <input type="text" placeholder="{{toLabel}}.." ng-model="newTo">\n' +
+    '    <input type="text" placeholder="{{fromLabel}}.." ng-model="newFrom" uib-typeahead="val for val in fromSuggestions | filter:$viewValue" typeahead-min-length="0">\n' +
+    '    <input type="text" placeholder="{{toLabel}}.." ng-model="newTo" uib-typeahead="val for val in toSuggestions | filter:$viewValue" typeahead-min-length="0">\n' +
     '    <button ng-disabled="!newFrom || !newTo" class="btn btn-default btn-sm"><i class="fa fa-link fa-2x" ng-click="addSynonym({from: newFrom, to: newTo})"></i></button>\n' +
     '  </form>\n' +
     '  <table class="table-hover">\n' +

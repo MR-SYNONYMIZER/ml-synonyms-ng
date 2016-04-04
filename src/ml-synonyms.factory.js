@@ -83,6 +83,8 @@
     function getTriplesData() {
       return mlRest.things(''+predicate+'').then(function(response) {
         return { data: response && response.data };
+      }, function(error) {
+        return { data: error.status === 404 ? '' : error.status };
       });
     }
 
@@ -90,7 +92,7 @@
       /* jshint multistr: true */
       var query = '\
         INSERT DATA { \
-          "'+from+'" <'+predicate+'> "'+to+'". \
+          <'+from+'> <'+predicate+'> <'+to+'>. \
         } \
       ';
       /* jshint multistr: false */
@@ -101,8 +103,8 @@
       /* jshint multistr: true */
       var query = '\
         DELETE DATA { \
-          "'+from+'" <'+predicate+'> "'+to+'". \
-          "'+to+'" <'+predicate+'> "'+from+'". \
+          <'+from+'> <'+predicate+'> <'+to+'>. \
+          <'+to+'> <'+predicate+'> <'+from+'>. \
         } \
       ';
       /* jshint multistr: false */
