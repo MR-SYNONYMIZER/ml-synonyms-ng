@@ -1,6 +1,6 @@
 {
   "name": "ml-synonyms-ng",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Angular directive and service for handling search term synonyms for use with MarkLogic REST-api",
   "main": [
     "dist/ml-synonyms-ng.js",
